@@ -395,11 +395,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1122632147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1543216753092369487, guid: ca014879105e38940824f2aeca60623c, type: 3}
+  m_PrefabInstance: {fileID: 1183409717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1122632148 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1543216753092788333, guid: ca014879105e38940824f2aeca60623c, type: 3}
   m_PrefabInstance: {fileID: 1183409717}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1122632149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122632147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5391861178cf056458141aa8ccdf9ea6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anim: {fileID: 0}
+  _canRotate: 1
 --- !u!1001 &1183409717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -407,13 +426,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1551735783}
     m_Modifications:
+    - target: {fileID: 1543216753085116367, guid: ca014879105e38940824f2aeca60623c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a1d4f4f9d1be6584481094b483ebb170, type: 2}
     - target: {fileID: 1543216753092369487, guid: ca014879105e38940824f2aeca60623c, type: 3}
       propertyPath: m_Name
       value: PT_Medieval_Plague_Doctor
       objectReference: {fileID: 0}
     - target: {fileID: 1543216753092788333, guid: ca014879105e38940824f2aeca60623c, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1543216753092788333, guid: ca014879105e38940824f2aeca60623c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -505,6 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _myTransform: {fileID: 0}
+  animatorHandler: {fileID: 0}
   rigidbody: {fileID: 1551735786}
   _normalCamera: {fileID: 0}
   _movementSpeed: 5
