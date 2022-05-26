@@ -14,9 +14,27 @@ namespace CG
         public float _mouseY;
 
         PlayerControls inputActions;
+        CameraHandlerBehavior cameraHandler;
 
         Vector2 movementInput;
         Vector2 cameraInput;
+
+        private void Awake()
+        {
+            cameraHandler = CameraHandlerBehavior.singleton;
+        }
+
+        private void FixedUpdate()
+        {
+            float delta = Time.fixedDeltaTime;
+
+            if (cameraHandler != null)
+            {
+                cameraHandler.FollowTarget(delta);
+                cameraHandler.HandleCameraRotation(delta, _mouseX, _mouseY);
+            }
+        }
+
 
         public void OnEnable()
         {

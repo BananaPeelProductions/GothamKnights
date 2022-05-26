@@ -44,6 +44,7 @@ namespace CG
             _moveDirection = _cameraObject.forward * inputHandler._vertical;
             _moveDirection += _cameraObject.right * inputHandler._horizontal;
             _moveDirection.Normalize();
+            _moveDirection.y = 0;
 
             float speed = _movementSpeed;
             _moveDirection *= speed;
