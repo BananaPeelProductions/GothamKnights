@@ -7,6 +7,8 @@ namespace CG
     public class AnimatorHandlerBehavior : MonoBehaviour
     {
         public Animator _anim;
+        public InputHandlerBehavior inputHandler;
+        public PlayerMovementBehvaior playerMovement;
         int _vertical;
         int _horizontal;
         public bool _canRotate;
@@ -14,6 +16,7 @@ namespace CG
         public void Initialized()
         {
             _anim = GetComponent<Animator>();
+            inputHandler = GetComponentInParent<InputHandlerBehavior>();
             _vertical = Animator.StringToHash("Vertical");
             _horizontal = Animator.StringToHash("Horizontal");
         }
@@ -70,9 +73,13 @@ namespace CG
             }
             #endregion
 
+            
+
             _anim.SetFloat(_vertical, v, 0.1f, Time.deltaTime);
             _anim.SetFloat(_horizontal, h, 0.1f, Time.deltaTime);
         }
+
+       
 
         public void CanRotate()
         {
@@ -83,6 +90,8 @@ namespace CG
         {
             _canRotate = false;
         }
+
+        
     }
 }
 

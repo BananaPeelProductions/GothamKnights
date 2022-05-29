@@ -23,6 +23,7 @@ namespace CG
         float _movementSpeed = 5;
         [SerializeField]
         float _rotationSpeed = 10;
+        
 
         // Start is called before the first frame update
         void Start()
@@ -38,26 +39,9 @@ namespace CG
         public void Update()
         {
             float delta = Time.deltaTime;
-
             inputHandler.TickInput(delta);
-
-            _moveDirection = _cameraObject.forward * inputHandler._vertical;
-            _moveDirection += _cameraObject.right * inputHandler._horizontal;
-            _moveDirection.Normalize();
-            _moveDirection.y = 0;
-
-            float speed = _movementSpeed;
-            _moveDirection *= speed;
-
-            Vector3 projectedVelocity = Vector3.ProjectOnPlane(_moveDirection, _normalVector);
-            rigidbody.velocity = projectedVelocity;
-
-            animatorHandler.UpdateAnimatorValues(inputHandler._moveAmount, 0);
-
-            if (animatorHandler._canRotate)
-            {
-                HandleRotation(delta);
-            }
+            HandleMovement(delta);
+            
         }
 
         #region Movement
@@ -86,6 +70,29 @@ namespace CG
             _myTransform.rotation = targetRotation;
         }
 
+        public void HandleMovement(float delta)
+        {
+            _moveDirection = _cameraObject.forward * inputHandler._vertical;
+            _moveDirection += _cameraObject.right * inputHandler._horizontal;
+            _moveDirection.Normalize();
+            _moveDirection.y = 0;
+
+            float speed = _movementSpeed;
+            _moveDirection *= speed;
+
+            Vector3 projectedVelocity = Vector3.ProjectOnPlane(_moveDirection, _normalVector);
+            rigidbody.velocity = projectedVelocity;
+
+            animatorHandler.UpdateAnimatorValues(inputHandler._moveAmount, 0);
+
+            if (animatorHandler._canRotate)
+            {
+                HandleRotation(delta);
+            }
+        }
+
+        
+            
 
         #endregion
 

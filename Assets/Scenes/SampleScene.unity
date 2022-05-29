@@ -694,6 +694,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anim: {fileID: 0}
+  inputHandler: {fileID: 0}
+  playerMovement: {fileID: 0}
   _canRotate: 1
 --- !u!1001 &1183409717
 PrefabInstance:
@@ -959,6 +961,7 @@ GameObject:
   - component: {fileID: 1551735785}
   - component: {fileID: 1551735784}
   - component: {fileID: 1551735787}
+  - component: {fileID: 1551735788}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -999,6 +1002,8 @@ MonoBehaviour:
   _normalCamera: {fileID: 0}
   _movementSpeed: 5
   _rotationSpeed: 10
+  _sprintSpeed: 7
+  _isSprinting: 0
 --- !u!114 &1551735785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1016,6 +1021,11 @@ MonoBehaviour:
   _moveAmount: 0
   _mouseX: 0
   _mouseY: 0
+  _bInput: 0
+  _rollFlag: 0
+  _rollInputTimer: 0
+  _isInteracting: 0
+  _sprintFlag: 0
 --- !u!54 &1551735786
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1046,3 +1056,15 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1551735788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551735782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3fbdb2a85cd2c45a33d9e690d51beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
