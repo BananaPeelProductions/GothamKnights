@@ -6,6 +6,7 @@ namespace CG
 {
     public class PlayerMovementBehvaior : MonoBehaviour
     {
+        PlayerManagerBehavior playerManager;
         Transform _cameraObject;
         InputHandlerBehavior inputHandler;
         Vector3 _moveDirection;
@@ -18,16 +19,21 @@ namespace CG
         public new Rigidbody rigidbody;
         public GameObject _normalCamera;
 
-        [Header("Stats")]
+        [Header("Movement Stats")]
         [SerializeField]
         float _movementSpeed = 5;
         [SerializeField]
+        float _sprintSpeed = 7;
+        [SerializeField]
         float _rotationSpeed = 10;
+
+        
         
 
         // Start is called before the first frame update
         void Start()
         {
+            playerManager = GetComponent<PlayerManagerBehavior>();
             rigidbody = GetComponent<Rigidbody>();
             inputHandler = GetComponent<InputHandlerBehavior>();
             animatorHandler = GetComponentInChildren<AnimatorHandlerBehavior>();
@@ -36,13 +42,7 @@ namespace CG
             animatorHandler.Initialized();
         }
 
-        public void Update()
-        {
-            float delta = Time.deltaTime;
-            inputHandler.TickInput(delta);
-            HandleMovement(delta);
-            
-        }
+        
 
         #region Movement
         Vector3 _normalVector;
@@ -72,18 +72,32 @@ namespace CG
 
         public void HandleMovement(float delta)
         {
+            if (inputHandler.rollFlag)
+                return;
+
             _moveDirection = _cameraObject.forward * inputHandler._vertical;
             _moveDirection += _cameraObject.right * inputHandler._horizontal;
             _moveDirection.Normalize();
             _moveDirection.y = 0;
 
             float speed = _movementSpeed;
-            _moveDirection *= speed;
+
+            if(inputHandler.sprintFlag)
+            {
+                speed = _sprintSpeed;
+                playerManager._isSprinting = true;
+                _moveDirection *= speed;
+            }
+            else
+            {
+                _moveDirection *= speed;
+            }
+            
 
             Vector3 projectedVelocity = Vector3.ProjectOnPlane(_moveDirection, _normalVector);
             rigidbody.velocity = projectedVelocity;
 
-            animatorHandler.UpdateAnimatorValues(inputHandler._moveAmount, 0);
+            animatorHandler.UpdateAnimatorValues(inputHandler._moveAmount, 0, playerManager._isSprinting);
 
             if (animatorHandler._canRotate)
             {
@@ -91,7 +105,29 @@ namespace CG
             }
         }
 
-        
+        public void HandleRollingAndSprinting(float delta)
+        {
+            if (animatorHandler._anim.GetBool("isInteracting"))
+                return;
+
+            if(inputHandler.rollFlag)
+            {
+                _moveDirection = _cameraObject.forward * inputHandler._vertical;
+                _moveDirection += _cameraObject.right * inputHandler._horizontal;
+
+                if (inputHandler._moveAmount > 0)
+                {
+                    animatorHandler.PlayTargetAnimation("Dodge", true);
+                    _moveDirection.y = 0;
+                    Quaternion dodgeRoation = Quaternion.LookRotation(_moveDirection);
+                    _myTransform.rotation = dodgeRoation;
+                }
+                else
+                {
+                    animatorHandler.PlayTargetAnimation("Backstep", true);
+                }
+            }
+        }
             
 
         #endregion
